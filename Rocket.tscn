@@ -1,0 +1,163 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Rocket.gd" type="Script" id=1]
+[ext_resource path="res://Particles/rocket_exhaust.png" type="Texture" id=2]
+[ext_resource path="res://Particles/rocket_exhaust.svg" type="Texture" id=3]
+[ext_resource path="res://Sounds/233405__templeofhades__gas-leak.wav" type="AudioStream" id=4]
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0, 0.587692, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.114899, 0.493586, 0.980469, 0.508314, 0.44982, 0.68211, 0.980769, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+
+flags = 4
+gradient = SubResource( 2 )
+width = 2048
+
+[sub_resource type="ParticlesMaterial" id=4]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 0.0
+flatness = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.6
+scale_random = 0.0
+color_ramp = SubResource( 3 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Angular Velocity", "Color", "Emission Shape", "Gravity", "Scale", "Spread", "Trail" ]
+
+[node name="Rocket" type="Area2D"]
+
+scale = Vector2( 0.5, 0.5 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 3
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="Exhaust" type="Particles2D" parent="." index="0"]
+
+position = Vector2( 0, 141.667 )
+emitting = true
+amount = 5
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = SubResource( 4 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
+
+[node name="Fire" type="Sprite" parent="." index="1"]
+
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 0, 25 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Look" type="Polygon2D" parent="." index="2"]
+
+polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
+uv = PoolVector2Array(  )
+color = Color( 1, 0.435294, 0, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
+
+build_mode = 0
+polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
+
+[node name="Tick" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.02
+one_shot = false
+autostart = true
+
+[node name="Lifetime" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 15.0
+one_shot = false
+autostart = true
+
+[node name="Flame" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 4 )
+volume_db = -20.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 2
+bus = "Master"
+
+[node name="Explosion" type="Tween" parent="." index="7"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="area_entered" from="." to="." method="_on_Rocket_area_entered"]
+
+[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
+
+[connection signal="tween_completed" from="Explosion" to="." method="_on_Explosion_tween_completed"]
+
+

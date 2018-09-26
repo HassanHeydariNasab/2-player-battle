@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://RocketPack.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 65, 25 )
+
+[node name="RocketPack" type="Area2D"]
+
+rotation = 1.5708
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 16
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="Look" type="Polygon2D" parent="." index="0"]
+
+polygon = PoolVector2Array( 75, -25, -55, -25, -55, 25, 75, 25 )
+uv = PoolVector2Array(  )
+color = Color( 0.792557, 0.792969, 0.740311, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 5.0
+_sections_unfolded = [ "Invert" ]
+
+[node name="Border" type="Polygon2D" parent="." index="1"]
+
+polygon = PoolVector2Array( 75, -25, -55, -25, -55, 25, 75, 25 )
+uv = PoolVector2Array(  )
+color = Color( 0.628906, 0.612938, 0.550293, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = true
+invert_border = 5.0
+_sections_unfolded = [ "Invert" ]
+
+[node name="Rocket" type="Polygon2D" parent="." index="2"]
+
+position = Vector2( 19.441, -0.969048 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
+uv = PoolVector2Array(  )
+color = Color( 1, 0.435294, 0, 1 )
+vertex_colors = PoolColorArray(  )
+offset = Vector2( 0, 0 )
+antialiased = false
+texture = null
+texture_offset = Vector2( 0, 0 )
+texture_scale = Vector2( 1, 1 )
+texture_rotation_degrees = 0.0
+invert_enable = false
+invert_border = 100.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+
+position = Vector2( 10, 0 )
+shape = SubResource( 1 )
+
+[node name="Lifetime" type="Tween" parent="." index="4"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Pick" type="Tween" parent="." index="5"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+_sections_unfolded = [ "playback" ]
+
+[connection signal="area_entered" from="." to="." method="_on_RocketPack_area_entered"]
+
+[connection signal="tween_completed" from="Lifetime" to="." method="_on_Lifetime_tween_completed"]
+
+[connection signal="tween_completed" from="Pick" to="." method="_on_Pick_tween_completed"]
+
+

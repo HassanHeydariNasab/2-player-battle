@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/233405__templeofhades__gas-leak.wav-027e6cbaf10a72a2bbc7ceb121262e7a.sample"
+
+[deps]
+
+source_file="res://Sounds/233405__templeofhades__gas-leak.wav"
+dest_files=[ "res://.import/233405__templeofhades__gas-leak.wav-027e6cbaf10a72a2bbc7ceb121262e7a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

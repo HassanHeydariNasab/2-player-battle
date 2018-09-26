@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/109957__rakurka__incoming-ricochets-2.wav-f2431cccf6d7508ed385b37f1c1ef30c.sample"
+
+[deps]
+
+source_file="res://Sounds/109957__rakurka__incoming-ricochets-2.wav"
+dest_files=[ "res://.import/109957__rakurka__incoming-ricochets-2.wav-f2431cccf6d7508ed385b37f1c1ef30c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

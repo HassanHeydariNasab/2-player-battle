@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Base.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Health.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sounds/102733__sarge4267__explosion3.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=6]
+
+[node name="Main" type="Control" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Packs" type="Node2D" parent="." index="0"]
+
+[node name="Bullets" type="Node2D" parent="." index="1"]
+
+[node name="ContainerB" type="Control" parent="." index="2"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="BaseB" parent="ContainerB" index="0" instance=ExtResource( 2 )]
+
+rotation = 3.14159
+
+[node name="HealthB" parent="ContainerB" index="1" instance=ExtResource( 3 )]
+
+rotation = 1.5708
+_sections_unfolded = [ "Transform" ]
+
+[node name="ContainerA" type="Control" parent="." index="3"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="BaseA" parent="ContainerA" index="0" instance=ExtResource( 2 )]
+
+[node name="HealthA" parent="ContainerA" index="1" instance=ExtResource( 3 )]
+
+rotation = -1.5708
+_sections_unfolded = [ "Transform" ]
+
+[node name="RocketExplosionOnAir" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="RocketExplosionOnBase" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Ricochet1" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 5 )
+volume_db = -20.0
+pitch_scale = 0.8
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Ricochet2" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 6 )
+volume_db = -22.0
+pitch_scale = 0.7
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="RocketPackInterval" type="Timer" parent="." index="8"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = true
+
+[connection signal="item_rect_changed" from="." to="." method="_on_Main_item_rect_changed"]
+
+[connection signal="timeout" from="RocketPackInterval" to="." method="_on_RocketPackInterval_timeout"]
+
+
