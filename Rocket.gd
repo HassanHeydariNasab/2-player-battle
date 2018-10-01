@@ -25,7 +25,7 @@ func set_health(value):
 
 
 func _ready():
-	self.health = 10
+	self.health = 2.4
 	Explosion.interpolate_property(
 		self, 'scale', get_scale(), get_scale()*2.4, 0.5,
 		Tween.TRANS_QUAD, Tween.EASE_IN

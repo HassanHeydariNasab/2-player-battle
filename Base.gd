@@ -73,7 +73,6 @@ func _change_weapon():
 		Gun.hide()
 		Gun.Interval.stop()
 		Launchpad.show()
-		Launchpad.elapsed = 0
 	elif Launchpad.is_visible_in_tree():
 		Gun.show()
 		Gun.Interval.start()

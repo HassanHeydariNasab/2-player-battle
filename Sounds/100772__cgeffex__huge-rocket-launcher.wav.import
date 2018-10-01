@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/100772__cgeffex__huge-rocket-launcher.wav-28d33e0b951a510dc2d22c4695a418bd.sample"
+
+[deps]
+
+source_file="res://Sounds/100772__cgeffex__huge-rocket-launcher.wav"
+dest_files=[ "res://.import/100772__cgeffex__huge-rocket-launcher.wav-28d33e0b951a510dc2d22c4695a418bd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

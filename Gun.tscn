@@ -12,7 +12,7 @@ script = ExtResource( 1 )
 
 z_index = 1
 z_as_relative = false
-polygon = PoolVector2Array( 20, -70, 10, -80, -10, -80, -20, -70, -20, 0, 20, 0 )
+polygon = PoolVector2Array( 20, -90, 10, -100, -10, -100, -20, -90, -20, -40, -40, -30, -60, 0, -50, 0, -30, -20, -20, -20, -20, 0, 20, 0, 20, -20, 30, -20, 50, 0, 60, 0, 40, -30, 20, -40 )
 uv = PoolVector2Array(  )
 color = Color( 1, 0.701961, 0, 1 )
 vertex_colors = PoolColorArray(  )
@@ -35,7 +35,7 @@ autostart = false
 
 [node name="Outlet" type="Position2D" parent="." index="2"]
 
-position = Vector2( 0, -110 )
+position = Vector2( 0, -130 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Shoot" type="AudioStreamPlayer" parent="." index="3"]
@@ -50,7 +50,7 @@ bus = "Master"
 [node name="Flame" type="Sprite" parent="." index="4"]
 
 modulate = Color( 1, 0.670588, 0.25098, 0 )
-position = Vector2( 0, -95 )
+position = Vector2( 0, -105 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility" ]

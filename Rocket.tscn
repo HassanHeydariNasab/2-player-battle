@@ -3,20 +3,20 @@
 [ext_resource path="res://Rocket.gd" type="Script" id=1]
 [ext_resource path="res://Particles/rocket_exhaust.png" type="Texture" id=2]
 [ext_resource path="res://Particles/rocket_exhaust.svg" type="Texture" id=3]
-[ext_resource path="res://Sounds/233405__templeofhades__gas-leak.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/130202__cyberkineticfilms__rocket-start-up.wav" type="AudioStream" id=4]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 0.587692, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.114899, 0.493586, 0.980469, 0.508314, 0.44982, 0.68211, 0.980769, 0 )
 
-[sub_resource type="GradientTexture" id=3]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 2 )
+gradient = SubResource( 1 )
 width = 2048
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=3]
 
 render_priority = 0
 trail_divisor = 1
@@ -45,7 +45,7 @@ angle = 0.0
 angle_random = 0.0
 scale = 1.6
 scale_random = 0.0
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 0.0
@@ -86,7 +86,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = false
 draw_order = 0
-process_material = SubResource( 4 )
+process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 normal_map = null
 h_frames = 1
@@ -137,7 +137,7 @@ autostart = true
 [node name="Flame" type="AudioStreamPlayer" parent="." index="6"]
 
 stream = ExtResource( 4 )
-volume_db = -20.0
+volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 mix_target = 2

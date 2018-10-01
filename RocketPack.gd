@@ -16,6 +16,16 @@ func _ready():
 		self, 'scale', get_scale(), get_scale()*4, 0.5,
 		Tween.TRANS_ELASTIC, Tween.EASE_IN
 	)
+	if get_global_position().y > G.Main.screenSize.y/2:
+		Pick.interpolate_property(
+			self, 'position', get_global_position(), G.Main.BaseA.get_global_position(), 0.5,
+			Tween.TRANS_QUAD, Tween.EASE_IN
+		)
+	else:
+		Pick.interpolate_property(
+			self, 'position', get_global_position(), G.Main.BaseB.get_global_position(), 0.5,
+			Tween.TRANS_QUAD, Tween.EASE_IN
+		)
 	Lifetime.interpolate_property(
 		self, 'modulate', Color(1,1,1,1), Color(1,1,1,0), 2,
 		Tween.TRANS_QUAD, Tween.EASE_IN

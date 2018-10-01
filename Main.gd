@@ -48,10 +48,17 @@ func _input(event):
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					BaseA.Gun.Interval.stop()
 			else:
-				if event.is_pressed() and BaseA.Launchpad.Interval.is_stopped():
+				if event.is_pressed() and BaseA.Launchpad.Interval.is_stopped() and BaseA.rockets >= 1:
 					BaseA.Launchpad.Interval.start()
+					BaseA.Launchpad.DustR.set_emitting(true)
+					BaseA.Launchpad.DustL.set_emitting(true)
+					BaseA.Launchpad.Launch.play()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					BaseA.Launchpad.Interval.stop()
+					BaseA.Launchpad.DustR.set_emitting(false)
+					BaseA.Launchpad.DustL.set_emitting(false)
+					BaseA.Launchpad.Launch.stop()
+				
 		elif event.position.y < screenSize.y/2:
 			BaseB.set_rotation(-deg2rad(event.position.x*90/screenSize.x+135))
 			if BaseB.Gun.is_visible_in_tree():
@@ -60,12 +67,18 @@ func _input(event):
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					BaseB.Gun.Interval.stop()
 			else:
-				if event.is_pressed() and BaseB.Launchpad.Interval.is_stopped():
+				if event.is_pressed() and BaseB.Launchpad.Interval.is_stopped() and BaseB.rockets >= 1:
+					
 					BaseB.Launchpad.Interval.start()
+					BaseB.Launchpad.DustR.set_emitting(true)
+					BaseB.Launchpad.DustL.set_emitting(true)
+					BaseB.Launchpad.Launch.play()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					BaseB.Launchpad.Interval.stop()
-		
-		
+					BaseB.Launchpad.DustR.set_emitting(false)
+					BaseB.Launchpad.DustL.set_emitting(false)
+					BaseB.Launchpad.Launch.stop()
+
 
 func _on_Main_item_rect_changed():
 	screenSize = get_viewport().size

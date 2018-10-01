@@ -6,7 +6,7 @@ const TYPE = 'Bullet'
 
 var angle = 0  # Radian
 const SPEED = 15
-const POWER = 1
+const POWER = 0.2
 
 
 func _ready():
