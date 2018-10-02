@@ -5,7 +5,7 @@ const TYPE = 'Bullet'
 
 
 var angle = 0  # Radian
-const SPEED = 15
+var speed = 15
 const POWER = 0.2
 
 
@@ -16,7 +16,7 @@ func _ready():
 func _on_Tick_timeout():
 	translate(
 		Vector2(
-			cos(angle)*SPEED, sin(angle)*SPEED
+			cos(angle)*speed, sin(angle)*speed
 		)
 	)
 

@@ -28,3 +28,4 @@ func _on_Interval_timeout():
 	Bullet_.angle = get_global_rotation()+deg2rad(-90)
 	G.Main.Bullets.add_child(Bullet_)
 	Bullet_.set_global_rotation(get_global_rotation())
+	Bullet_.speed = get_parent().gunLevel/4+8

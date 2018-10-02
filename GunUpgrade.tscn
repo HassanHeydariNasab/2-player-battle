@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://RocketPack.gd" type="Script" id=1]
+[ext_resource path="res://GunUpgrade.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 25, 25 )
 
-[node name="RocketPack" type="Area2D"]
+[node name="GunUpgrade" type="Area2D" index="0"]
 
 rotation = 1.5708
 input_pickable = true
@@ -22,30 +22,11 @@ audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="Lifetime" type="Tween" parent="." index="0"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="Pick" type="Tween" parent="." index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-_sections_unfolded = [ "playback" ]
-
-[node name="Look" type="Polygon2D" parent="." index="2"]
+[node name="Look" type="Polygon2D" parent="." index="0"]
 
 polygon = PoolVector2Array( 19.9999, -20.0001, -20.0001, -19.9999, -19.9999, 20.0001, 20.0001, 19.9999 )
 uv = PoolVector2Array(  )
-color = Color( 1, 0.431373, 0, 1 )
+color = Color( 0.792557, 0.792969, 0.740311, 1 )
 vertex_colors = PoolColorArray(  )
 offset = Vector2( 0, 0 )
 antialiased = false
@@ -57,7 +38,7 @@ invert_enable = false
 invert_border = 5.0
 _sections_unfolded = [ "Invert", "Transform" ]
 
-[node name="Border" type="Polygon2D" parent="." index="3"]
+[node name="Border" type="Polygon2D" parent="." index="1"]
 
 polygon = PoolVector2Array( 19.9999, -20.0001, -20.0001, -19.9999, -19.9999, 20.0001, 20.0001, 19.9999 )
 uv = PoolVector2Array(  )
@@ -73,12 +54,30 @@ invert_enable = true
 invert_border = 5.0
 _sections_unfolded = [ "Invert", "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[connection signal="area_entered" from="." to="." method="_on_RocketPack_area_entered"]
+[node name="Lifetime" type="Tween" parent="." index="3"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Pick" type="Tween" parent="." index="4"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="area_entered" from="." to="." method="_on_GunUpgrade_area_entered"]
 
 [connection signal="tween_completed" from="Lifetime" to="." method="_on_Lifetime_tween_completed"]
 

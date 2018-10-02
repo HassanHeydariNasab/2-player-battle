@@ -2,8 +2,10 @@ extends Area2D
 
 
 onready var Gun = $Gun
+onready var GunInterval = $Gun/Interval
 onready var Launchpad = $Launchpad
-onready var nRockets = $nRockets
+onready var nRockets = get_node('../nRockets')
+onready var GunLevel = $Gun/GunLevel
 
 
 const TYPE = 'Base'
@@ -36,12 +38,20 @@ func set_rockets(value):
 		nRockets.set_text(str(value))
 
 
+var gunLevel setget set_gunLevel
+func set_gunLevel(value):
+	if value >= 0 and value <= 100:
+		gunLevel = value
+		GunLevel.set_text(str(value))
+		GunInterval.set_wait_time(1.0/(value+10)*5)
+
+
 func _ready():
 	self.health = 180
 	Gun.show()
 	Launchpad.hide()
 	Launchpad.Interval.stop()
-	self.rockets = 2
+	self.gunLevel = 1
 	set_process(true)
 
 
@@ -75,7 +85,6 @@ func _change_weapon():
 		Launchpad.show()
 	elif Launchpad.is_visible_in_tree():
 		Gun.show()
-		Gun.Interval.start()
 		Launchpad.hide()
 		Launchpad.Interval.stop()
 

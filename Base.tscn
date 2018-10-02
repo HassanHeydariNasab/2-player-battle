@@ -31,6 +31,32 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Pickable", "Transform" ]
 
 position = Vector2( 0, -164 )
 
+[node name="GunLevel" type="Label" parent="Gun" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -10.0
+margin_top = 11.0
+margin_right = 1.0
+margin_bottom = 25.0
+grow_horizontal = 0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "123"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Grow Direction", "Rect" ]
+
 [node name="Launchpad" parent="." index="1" instance=ExtResource( 3 )]
 
 visible = false
@@ -51,30 +77,6 @@ shape_visible = true
 passby_press = true
 action = ""
 visibility_mode = 0
-
-[node name="nRockets" type="Label" parent="." index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -10.0
-margin_top = -90.0
-margin_right = 30.0
-margin_bottom = -76.0
-rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "0"
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect" ]
 
 [connection signal="area_entered" from="." to="." method="_on_Base_area_entered"]
 
