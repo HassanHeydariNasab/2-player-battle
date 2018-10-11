@@ -78,7 +78,8 @@ func _on_Base_area_entered(area):
 		area.queue_free()
 
 
-func _change_weapon():
+sync func _change_weapon():
+	print(get_network_master())
 	if Gun.is_visible_in_tree():
 		Gun.hide()
 		Gun.Interval.stop()
@@ -90,4 +91,8 @@ func _change_weapon():
 
 
 func _on_ChangeWeapon_pressed():
-	_change_weapon()
+	if G.Main.is_online:
+		if get_network_master() == get_tree().get_network_unique_id():
+			rpc('_change_weapon')
+	else:
+		_change_weapon()
