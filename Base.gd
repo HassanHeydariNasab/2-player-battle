@@ -78,8 +78,32 @@ func _on_Base_area_entered(area):
 		area.queue_free()
 
 
-sync func _change_weapon():
-	print(get_network_master())
+slave func _set_rotation(angle):
+	set_rotation(deg2rad(angle))
+
+slave func _rotate(angle):
+	rotate(deg2rad(angle))
+
+slave func Gun_start():
+	Gun.Interval.start()
+
+slave func Gun_stop():
+	Gun.Interval.stop()
+
+slave func Launchpad_start():
+	Launchpad.Interval.start()
+	Launchpad.DustR.set_emitting(true)
+	Launchpad.DustL.set_emitting(true)
+	Launchpad.Launch.play()
+
+slave func Launchpad_stop():
+	Launchpad.Interval.stop()
+	Launchpad.DustR.set_emitting(false)
+	Launchpad.DustL.set_emitting(false)
+	Launchpad.Launch.stop()
+
+
+slave func _change_weapon():
 	if Gun.is_visible_in_tree():
 		Gun.hide()
 		Gun.Interval.stop()

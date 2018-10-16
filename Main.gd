@@ -27,7 +27,7 @@ var screenSize = Vector2()
 var is_online = false
 func _ready():
 	G.Main = self
-	is_online = false
+	is_online = true
 	BaseA.is_A = true
 	BaseB.is_A = false
 	BaseB.set_rotation(deg2rad(180))
@@ -63,28 +63,17 @@ func _draw():
 	)
 
 
-sync func BaseA_Gun_start():
-	BaseA.Gun.Interval.start()
-
-sync func BaseA_Gun_stop():
-	BaseA.Gun.Interval.stop()
-
-sync func BaseB_Gun_start():
-	BaseB.Gun.Interval.start()
-
-sync func BaseB_Gun_stop():
-	BaseB.Gun.Interval.stop()
-
 var is_touching = false
 func _input(event):
 	if event is InputEventScreenDrag or event is InputEventScreenTouch:
 #		printt(event.position, event.index)
 		# rotation
 		if not is_online and event.position.y > screenSize.y/2:
-			_set_rotation_BaseA(event.position.x*90/screenSize.x-45)
+			BaseA._set_rotation(event.position.x*90/screenSize.x-45)
 			is_touching = true
 		elif is_online and BaseA.get_network_master() == get_tree().get_network_unique_id():
-			rpc('_set_rotation_BaseA', event.position.x*90/screenSize.x-45)
+			BaseA.rpc('_set_rotation', event.position.x*90/screenSize.x-45)
+			BaseA._set_rotation(event.position.x*90/screenSize.x-45)
 			is_touching = true
 		# gunshot
 		if is_touching:
@@ -92,31 +81,37 @@ func _input(event):
 			if BaseA.Gun.is_visible_in_tree():
 				if event.is_pressed() and BaseA.Gun.Interval.is_stopped():
 					if is_online and BaseA.get_network_master() == get_tree().get_network_unique_id():
-						rpc('BaseA_Gun_start')
+						BaseA.rpc('Gun_start')
+						BaseA.Gun_start()
 					else:
-						BaseA_Gun_start()
+						BaseA.Gun_start()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					if is_online:
-						rpc('BaseA_Gun_stop')
+						BaseA.rpc('Gun_stop')
+						BaseA.Gun_stop()
 					else:
-						BaseA_Gun_stop()
+						BaseA.Gun_stop()
 			else:
 				if event.is_pressed() and BaseA.Launchpad.Interval.is_stopped() and BaseA.rockets >= 1:
-					BaseA.Launchpad.Interval.start()
-					BaseA.Launchpad.DustR.set_emitting(true)
-					BaseA.Launchpad.DustL.set_emitting(true)
-					BaseA.Launchpad.Launch.play()
+					if is_online and BaseA.get_network_master() == get_tree().get_network_unique_id():
+						BaseA.rpc('Launchpad_start')
+						BaseA.Launchpad_start()
+					else:
+						BaseA.Launchpad_start()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
-					BaseA.Launchpad.Interval.stop()
-					BaseA.Launchpad.DustR.set_emitting(false)
-					BaseA.Launchpad.DustL.set_emitting(false)
-					BaseA.Launchpad.Launch.stop()
+					if is_online and BaseA.get_network_master() == get_tree().get_network_unique_id():
+						BaseA.rpc('Launchpad_stop')
+						BaseA.Launchpad_stop()
+					else:
+						BaseA.Launchpad_stop()
+					
 		# rotation
 		if not is_online and event.position.y < screenSize.y/2:
-			_set_rotation_BaseB(event.position.x*90/-screenSize.x-135)
+			BaseB._set_rotation(event.position.x*90/-screenSize.x-135)
 			is_touching = true
 		elif is_online and BaseB.get_network_master() == get_tree().get_network_unique_id():
-			rpc('_set_rotation_BaseB', event.position.x*90/screenSize.x+135)
+			BaseB.rpc('_set_rotation', event.position.x*90/screenSize.x+135)
+			BaseB._set_rotation(event.position.x*90/screenSize.x+135)
 			is_touching = true
 		# gunshot
 		if is_touching:
@@ -124,49 +119,105 @@ func _input(event):
 			if BaseB.Gun.is_visible_in_tree():
 				if event.is_pressed() and BaseB.Gun.Interval.is_stopped():
 					if is_online and BaseB.get_network_master() == get_tree().get_network_unique_id():
-						rpc('BaseB_Gun_start')
+						BaseB.rpc('Gun_start')
+						BaseB.Gun_start()
 					else:
-						BaseB_Gun_start()
+						BaseB.Gun_start()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
 					if is_online:
-						rpc('BaseB_Gun_stop')
+						BaseB.rpc('Gun_stop')
+						BaseB.Gun_stop()
 					else:
-						BaseB_Gun_stop()
+						BaseB.Gun_stop()
 			else:
 				if event.is_pressed() and BaseB.Launchpad.Interval.is_stopped() and BaseB.rockets >= 1:
-					BaseB.Launchpad.Interval.start()
-					BaseB.Launchpad.DustR.set_emitting(true)
-					BaseB.Launchpad.DustL.set_emitting(true)
-					BaseB.Launchpad.Launch.play()
+					if is_online and BaseB.get_network_master() == get_tree().get_network_unique_id():
+						BaseB.rpc('Launchpad_start')
+						BaseB.Launchpad_start()
+					else:
+						BaseB.Launchpad_start()
 				elif event is InputEventScreenTouch and (not event.is_pressed()):
-					BaseB.Launchpad.Interval.stop()
-					BaseB.Launchpad.DustR.set_emitting(false)
-					BaseB.Launchpad.DustL.set_emitting(false)
-					BaseB.Launchpad.Launch.stop()
+					if is_online and BaseB.get_network_master() == get_tree().get_network_unique_id():
+						BaseB.rpc('Launchpad_stop')
+						BaseB.Launchpad_stop()
+					else:
+						BaseB.Launchpad_stop()
 	elif event is InputEventKey:
-		if Input.is_action_just_pressed('A_change_weapon'):
+		# change weapon
+		if event.is_action_pressed('A_change_weapon'):
 			if not is_online:
 				BaseA._change_weapon()
-			elif is_online and BaseA.get_network_master() == get_tree().get_network_unique_id():
-				BaseA.rpc('_change_weapon')
-		elif Input.is_action_just_pressed('B_change_weapon'):
+			elif is_online:
+				if BaseA.get_network_master() == get_tree().get_network_unique_id():
+					BaseA.rpc('_change_weapon')
+					BaseA._change_weapon()
+				elif BaseB.get_network_master() == get_tree().get_network_unique_id():
+					BaseB.rpc('_change_weapon')
+					BaseB._change_weapon()
+		elif event.is_action_pressed('B_change_weapon'):
 			if not is_online:
 				BaseB._change_weapon()
-			elif is_online and BaseB.get_network_master() == get_tree().get_network_unique_id():
-				BaseB.rpc('_change_weapon')
+		# shooting
+		elif event.is_action_pressed('A_shoot'):
+			if not is_online:
+				if BaseA.Gun.is_visible_in_tree():
+					BaseA.Gun_start()
+				else:
+					if BaseA.Launchpad.Interval.is_stopped() and BaseA.rockets >= 1:
+						BaseA.Launchpad_start()
+			else:
+				if BaseA.get_network_master() == get_tree().get_network_unique_id():
+					if BaseA.Gun.is_visible_in_tree():
+						BaseA.rpc('Gun_start')
+						BaseA.Gun_start()
+					else:
+						if BaseA.Launchpad.Interval.is_stopped() and BaseA.rockets >= 1:
+							BaseA.rpc('Launchpad_start')
+							BaseA.Launchpad_start()
+				elif BaseB.get_network_master() == get_tree().get_network_unique_id():
+					if BaseB.Gun.is_visible_in_tree():
+						BaseB.rpc('Gun_start')
+						BaseB.Gun_start()
+					else:
+						if BaseB.Launchpad.Interval.is_stopped() and BaseB.rockets >= 1:
+							BaseB.rpc('Launchpad_start')
+							BaseB.Launchpad_start()
+		elif event.is_action_pressed('B_shoot'):
+			if not is_online:
+				if BaseB.Gun.is_visible_in_tree():
+					BaseB.Gun_start()
+				else:
+					if BaseB.Launchpad.Interval.is_stopped() and BaseB.rockets >= 1:
+						BaseB.Launchpad_start()
+		# stop shooting
+		elif event.is_action_released('A_shoot'):
+			if not is_online:
+				if BaseA.Gun.is_visible_in_tree():
+					BaseA.Gun_stop()
+				else:
+					BaseA.Launchpad_stop()
+			else:
+				if BaseA.get_network_master() == get_tree().get_network_unique_id():
+					if BaseA.Gun.is_visible_in_tree():
+						BaseA.rpc('Gun_stop')
+						BaseA.Gun_stop()
+					else:
+						BaseA.rpc('Launchpad_stop')
+						BaseA.Launchpad_stop()
+				elif BaseB.get_network_master() == get_tree().get_network_unique_id():
+					if BaseB.Gun.is_visible_in_tree():
+						BaseB.rpc('Gun_stop')
+						BaseB.Gun_stop()
+					else:
+						BaseB.rpc('Launchpad_stop')
+						BaseB.Launchpad_stop()
+		elif event.is_action_released('B_shoot'):
+			if not is_online:
+				if BaseB.Gun.is_visible_in_tree():
+					BaseB.Gun_stop()
+				else:
+					BaseB.Launchpad_stop()
 
-
-sync func _rotate_BaseA(angle):
-	BaseA.rotate(deg2rad(angle))
-
-sync func _rotate_BaseB(angle):
-	BaseB.rotate(deg2rad(angle))
-
-sync func _set_rotation_BaseA(angle):
-	BaseA.set_rotation(deg2rad(angle))
-
-sync func _set_rotation_BaseB(angle):
-	BaseB.set_rotation(deg2rad(angle))
 
 func _physics_process(delta):
 	if not is_online:
@@ -181,55 +232,19 @@ func _physics_process(delta):
 	elif is_online:
 		if Input.is_action_pressed('A_left'):
 			if BaseA.get_network_master() == get_tree().get_network_unique_id():
-				rpc('_rotate_BaseA', -2)
+				BaseA.rpc('_rotate', -2)
+				BaseA._rotate(-2)
 			elif BaseB.get_network_master() == get_tree().get_network_unique_id():
-				rpc('_rotate_BaseB', -2)
+				BaseB.rpc('_rotate', -2)
+				BaseB._rotate(-2)
 		elif Input.is_action_pressed('A_right'):
 			if BaseA.get_network_master() == get_tree().get_network_unique_id():
-				rpc('_rotate_BaseA', 2)
+				BaseA.rpc('_rotate', 2)
+				BaseA._rotate(2)
 			elif BaseB.get_network_master() == get_tree().get_network_unique_id():
-				rpc('_rotate_BaseB', 2)
-		
+				BaseB.rpc('_rotate', 2)
+				BaseB._rotate(2)
 
-
-func _process(delta):
-	if (not is_online) or (is_online and BaseA.get_network_master() == get_tree().get_network_unique_id()):
-		if Input.is_action_just_pressed('A_shoot'):
-			if BaseA.Gun.is_visible_in_tree():
-				BaseA.Gun.Interval.start()
-			else:
-				if BaseA.Launchpad.Interval.is_stopped() and BaseA.rockets >= 1:
-					BaseA.Launchpad.Interval.start()
-					BaseA.Launchpad.DustR.set_emitting(true)
-					BaseA.Launchpad.DustL.set_emitting(true)
-					BaseA.Launchpad.Launch.play()
-		elif Input.is_action_just_released('A_shoot'):
-			if BaseA.Gun.is_visible_in_tree():
-				BaseA.Gun.Interval.stop()
-			else:
-				BaseA.Launchpad.Interval.stop()
-				BaseA.Launchpad.DustR.set_emitting(false)
-				BaseA.Launchpad.DustL.set_emitting(false)
-				BaseA.Launchpad.Launch.stop()
-	if (not is_online) or (is_online and BaseB.get_network_master() == get_tree().get_network_unique_id()):
-		if Input.is_action_just_pressed('B_shoot'):
-			if BaseB.Gun.is_visible_in_tree():
-				BaseB.Gun.Interval.start()
-			else:
-				if BaseB.Launchpad.Interval.is_stopped() and BaseB.rockets >= 1:
-					BaseB.Launchpad.Interval.start()
-					BaseB.Launchpad.DustR.set_emitting(true)
-					BaseB.Launchpad.DustL.set_emitting(true)
-					BaseB.Launchpad.Launch.play()
-		elif Input.is_action_just_released('B_shoot'):
-			if BaseB.Gun.is_visible_in_tree():
-				BaseB.Gun.Interval.stop()
-			else:
-				BaseB.Launchpad.Interval.stop()
-				BaseB.Launchpad.DustR.set_emitting(false)
-				BaseB.Launchpad.DustL.set_emitting(false)
-				BaseB.Launchpad.Launch.stop()
-	
 
 func _on_Main_item_rect_changed():
 	screenSize = get_viewport().size
@@ -306,19 +321,6 @@ remote func set_ContainerB_master(id):
 # comes from server to B
 remote func _rotate_Main_scene():
 	MainCamera.set_rotation_degrees(180)
-#	$ContainerA.set_name('ContainerT')
-#	$ContainerB.set_name('ContainerA')
-#	$ContainerT.set_name('ContainerB')
-#	$ContainerA/BaseB.set_name('BaseA')
-#	$ContainerB/BaseA.set_name('BaseB')
-#	$ContainerA/HealthB.set_name('HealthA')
-#	$ContainerB/HealthA.set_name('HealthB')
-#	BaseA = $ContainerA/BaseA
-#	BaseB = $ContainerB/BaseB
-#	HealthA = $ContainerA/HealthA
-#	HealthB = $ContainerB/HealthB
-#	BaseA.set_rotation(deg2rad(180))
-#	BaseB.set_rotation(deg2rad(0))
 
 # on server
 func _player_disconnected(id):
