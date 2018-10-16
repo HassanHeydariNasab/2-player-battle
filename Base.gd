@@ -118,5 +118,6 @@ func _on_ChangeWeapon_pressed():
 	if G.Main.is_online:
 		if get_network_master() == get_tree().get_network_unique_id():
 			rpc('_change_weapon')
+			_change_weapon()
 	else:
 		_change_weapon()
