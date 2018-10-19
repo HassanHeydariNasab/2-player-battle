@@ -200,14 +200,14 @@ bus = "Master"
 process_mode = 1
 wait_time = 10.0
 one_shot = false
-autostart = true
+autostart = false
 
 [node name="GunUpgradeInterval" type="Timer" parent="." index="9"]
 
 process_mode = 1
 wait_time = 3.0
 one_shot = false
-autostart = true
+autostart = false
 
 [node name="MainCamera" type="Camera2D" parent="." index="10"]
 

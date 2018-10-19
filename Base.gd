@@ -38,12 +38,16 @@ func set_rockets(value):
 		nRockets.set_text(str(value))
 
 
-var gunLevel setget set_gunLevel
+sync var gunLevel setget set_gunLevel
 func set_gunLevel(value):
 	if value >= 0 and value <= 100:
 		gunLevel = value
 		GunLevel.set_text(str(value))
 		GunInterval.set_wait_time(1.0/(value+10)*5)
+# on server
+func inc_gunLevel(by):
+	self.gunLevel += by
+	self.rset('gunLevel', self.gunLevel)
 
 
 func _ready():

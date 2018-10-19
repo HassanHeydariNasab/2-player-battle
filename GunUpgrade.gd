@@ -7,7 +7,6 @@ onready var Lifetime = $Lifetime
 
 func _ready():
 	randomize()
-	set_rotation_degrees(rand_range(0,360))
 	Pick.interpolate_property(
 		self, 'modulate', Color(1,1,1,1), Color(1,1,1,0), 0.5,
 		Tween.TRANS_QUAD, Tween.EASE_IN
@@ -42,9 +41,15 @@ func _on_GunUpgrade_area_entered(area):
 	area.queue_free()
 	Lifetime.stop_all()
 	if get_global_position().y > G.Main.screenSize.y/2:
-		G.Main.BaseA.gunLevel += 1
+		if not G.Main.is_online:
+			G.Main.BaseA.inc_gunLevel(1)
+		elif get_tree().get_network_unique_id() == 1:
+			G.Main.BaseA.inc_gunLevel(1)
 	else:
-		G.Main.BaseB.gunLevel += 1
+		if not G.Main.is_online:
+			G.Main.BaseB.inc_gunLevel(1)
+		elif get_tree().get_network_unique_id() == 1:
+			G.Main.BaseB.inc_gunLevel(1)
 	Pick.start()
 
 

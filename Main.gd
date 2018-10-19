@@ -38,13 +38,17 @@ func _ready():
 
 
 	var args = OS.get_cmdline_args()
-	if '-s' in args:
+	if is_online and '-s' in args:
+		G.is_server = true
 		# create server
 		var peer = NetworkedMultiplayerENet.new()
 		peer.create_server(6789, 2)
 		get_tree().set_network_peer(peer)
 		get_tree().connect("network_peer_connected", self, "_player_connected")
 		get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+		
+		$RocketPackInterval.start()
+		$GunUpgradeInterval.start()
 		
 	elif is_online:
 		# connect client to server
@@ -54,7 +58,9 @@ func _ready():
 		get_tree().connect("connected_to_server", self, "_connected_ok")
 		get_tree().connect("connection_failed", self, "_connected_fail")
 		get_tree().connect("server_disconnected", self, "_server_disconnected")
-
+	elif not is_online:
+		$RocketPackInterval.start()
+		$GunUpgradeInterval.start()
 
 func _draw():
 	draw_line(
@@ -264,29 +270,42 @@ func _onRocketExplosionOnBase():
 	RocketExplosionOnBase.play()
 
 
-var RocketPack_ = null
+var RocketPack_random_x = 0
+var RocketPack_random_y = 0
+# on server
 func _on_RocketPackInterval_timeout():
+	RocketPack_random_x = rand_range(0, screenSize.x)
+	RocketPack_random_y = rand_range(300, screenSize.y-300)
+	rpc('_spawn_RocketPack', RocketPack_random_x, RocketPack_random_y)
+	_spawn_RocketPack(RocketPack_random_x, RocketPack_random_y)
+
+var RocketPack_ = null
+slave func _spawn_RocketPack(random_x, random_y):
 	RocketPack_ = RocketPack.instance()
 	RocketPack_.set_global_position(
-		Vector2(
-			rand_range(0, screenSize.x),
-			rand_range(300, screenSize.y-300)
-		)
+		Vector2(random_x, random_y)
 	)
 	Packs.add_child(RocketPack_)
 
 
-var GunUpgrade_ = null
+var GunUpgrade_random_x = 0
+var GunUpgrade_random_y = 0
+# on server
 func _on_GunUpgradeInterval_timeout():
+	print('timeout: ', get_network_master())
+	GunUpgrade_random_x = rand_range(0, screenSize.x)
+	GunUpgrade_random_y = rand_range(300, screenSize.y-300)
+	rpc('_spawn_GunUpgrade', GunUpgrade_random_x, GunUpgrade_random_y)
+	_spawn_GunUpgrade(GunUpgrade_random_x, GunUpgrade_random_y)
+	
+var GunUpgrade_ = null
+slave func _spawn_GunUpgrade(random_x, random_y):
+	print('spawn: ', get_network_master())
 	GunUpgrade_ = GunUpgrade.instance()
 	GunUpgrade_.set_global_position(
-		Vector2(
-			rand_range(0, screenSize.x),
-			rand_range(300, screenSize.y-300)
-		)
+		Vector2(random_x, random_y)
 	)
 	Packs.add_child(GunUpgrade_)
-
 
 
 # on server
@@ -329,6 +348,7 @@ func _player_disconnected(id):
 # on client
 func _connected_ok():
 	print('connected to the server. my id is ', get_tree().get_network_unique_id())
+	print('master ', get_network_master())
 
 # on client
 func _connected_fail():
