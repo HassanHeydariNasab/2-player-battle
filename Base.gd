@@ -37,25 +37,27 @@ func set_rockets(value):
 		rockets = value
 		nRockets.set_text(str(value))
 
+#TODO harmful on server
+var gunLevel = 1 setget set_gunLevel
+sync func set_gunLevel(value):
+	if get_tree().get_rpc_sender_id() == 1 or (G.is_server and G.is_online) or not G.is_online:
+		if value >= 0 and value <= 100:
+			gunLevel = value
+			GunLevel.set_text(str(value))
+			GunInterval.set_wait_time(1.0/(value+10)*5)
 
-sync var gunLevel setget set_gunLevel
-func set_gunLevel(value):
-	if value >= 0 and value <= 100:
-		gunLevel = value
-		GunLevel.set_text(str(value))
-		GunInterval.set_wait_time(1.0/(value+10)*5)
-# on server
 func inc_gunLevel(by):
 	self.gunLevel += by
-	self.rset('gunLevel', self.gunLevel)
+	if G.is_online:
+		self.rpc('set_gunLevel', self.gunLevel)
 
 
 func _ready():
 	self.health = 180
+	self.gunLevel = 1
 	Gun.show()
 	Launchpad.hide()
 	Launchpad.Interval.stop()
-	self.gunLevel = 1
 	set_process(true)
 
 

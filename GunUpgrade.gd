@@ -41,12 +41,12 @@ func _on_GunUpgrade_area_entered(area):
 	area.queue_free()
 	Lifetime.stop_all()
 	if get_global_position().y > G.Main.screenSize.y/2:
-		if not G.Main.is_online:
+		if not G.is_online:
 			G.Main.BaseA.inc_gunLevel(1)
 		elif get_tree().get_network_unique_id() == 1:
 			G.Main.BaseA.inc_gunLevel(1)
 	else:
-		if not G.Main.is_online:
+		if not G.is_online:
 			G.Main.BaseB.inc_gunLevel(1)
 		elif get_tree().get_network_unique_id() == 1:
 			G.Main.BaseB.inc_gunLevel(1)

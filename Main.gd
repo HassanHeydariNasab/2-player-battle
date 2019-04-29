@@ -27,7 +27,7 @@ var screenSize = Vector2()
 var is_online = false
 func _ready():
 	G.Main = self
-	is_online = true
+	is_online = G.is_online
 	BaseA.is_A = true
 	BaseB.is_A = false
 	BaseB.set_rotation(deg2rad(180))

@@ -10,4 +10,5 @@ var health_color = '#335E35B1'
 var rocketsA = 1
 var rocketsB = 1
 
+var is_online = false
 var is_server = false
