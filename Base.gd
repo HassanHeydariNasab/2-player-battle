@@ -37,19 +37,15 @@ func set_rockets(value):
 		rockets = value
 		nRockets.set_text(str(value))
 
-#TODO harmful on server
 var gunLevel = 1 setget set_gunLevel
-sync func set_gunLevel(value):
-	if get_tree().get_rpc_sender_id() == 1 or (G.is_server and G.is_online) or not G.is_online:
-		if value >= 0 and value <= 100:
-			gunLevel = value
-			GunLevel.set_text(str(value))
-			GunInterval.set_wait_time(1.0/(value+10)*5)
+func set_gunLevel(value):
+	if value >= 0 and value <= 100:
+		gunLevel = value
+		GunLevel.set_text(str(value))
+		GunInterval.set_wait_time(1.0/(value+10)*5)
 
 func inc_gunLevel(by):
 	self.gunLevel += by
-	if G.is_online:
-		self.rpc('set_gunLevel', self.gunLevel)
 
 
 func _ready():
@@ -84,32 +80,32 @@ func _on_Base_area_entered(area):
 		area.queue_free()
 
 
-slave func _set_rotation(angle):
+func _set_rotation(angle):
 	set_rotation(deg2rad(angle))
 
-slave func _rotate(angle):
+func _rotate(angle):
 	rotate(deg2rad(angle))
 
-slave func Gun_start():
+func Gun_start():
 	Gun.Interval.start()
 
-slave func Gun_stop():
+func Gun_stop():
 	Gun.Interval.stop()
 
-slave func Launchpad_start():
+func Launchpad_start():
 	Launchpad.Interval.start()
 	Launchpad.DustR.set_emitting(true)
 	Launchpad.DustL.set_emitting(true)
 	Launchpad.Launch.play()
 
-slave func Launchpad_stop():
+func Launchpad_stop():
 	Launchpad.Interval.stop()
 	Launchpad.DustR.set_emitting(false)
 	Launchpad.DustL.set_emitting(false)
 	Launchpad.Launch.stop()
 
 
-slave func _change_weapon():
+func _change_weapon():
 	if Gun.is_visible_in_tree():
 		Gun.hide()
 		Gun.Interval.stop()
@@ -121,9 +117,4 @@ slave func _change_weapon():
 
 
 func _on_ChangeWeapon_pressed():
-	if G.Main.is_online:
-		if get_network_master() == get_tree().get_network_unique_id():
-			rpc('_change_weapon')
-			_change_weapon()
-	else:
-		_change_weapon()
+	_change_weapon()
