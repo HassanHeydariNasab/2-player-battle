@@ -5,81 +5,39 @@
 [ext_resource path="res://Launchpad.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
 radius = 180.0
 
 [sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
 radius = 180.0
 
 [node name="Base" type="Area2D"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
 collision_mask = 6
-audio_bus_override = false
-audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Audio Bus", "Collision", "Pickable", "Transform" ]
 
-[node name="Gun" parent="." index="0" instance=ExtResource( 2 )]
-
+[node name="Gun" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -164 )
 
-[node name="GunLevel" type="Label" parent="Gun" index="5"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="GunLevel" type="Label" parent="Gun"]
 margin_left = -10.0
 margin_top = 11.0
 margin_right = 1.0
 margin_bottom = 25.0
 grow_horizontal = 0
 rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "123"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Grow Direction", "Rect" ]
 
-[node name="Launchpad" parent="." index="1" instance=ExtResource( 3 )]
-
+[node name="Launchpad" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 0, -164 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="ChangeWeapon" type="TouchScreenButton" parent="." index="3"]
-
-normal = null
-pressed = null
-bitmask = null
+[node name="ChangeWeapon" type="TouchScreenButton" parent="."]
 shape = SubResource( 2 )
-shape_centered = true
-shape_visible = true
 passby_press = true
-action = ""
-visibility_mode = 0
 
 [connection signal="area_entered" from="." to="." method="_on_Base_area_entered"]
-
 [connection signal="pressed" from="ChangeWeapon" to="." method="_on_ChangeWeapon_pressed"]
-
-

@@ -7,237 +7,98 @@
 [ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=6]
 
-[node name="Main" type="Control" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Rect", "Transform" ]
 
-[node name="Packs" type="Node2D" parent="." index="0"]
+[node name="Packs" type="Node2D" parent="."]
 
-[node name="Bullets" type="Node2D" parent="." index="1"]
+[node name="Bullets" type="Node2D" parent="."]
 
-[node name="ContainerB" type="Control" parent="." index="2"]
-
+[node name="ContainerB" type="Control" parent="."]
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="BaseB" parent="ContainerB" index="0" instance=ExtResource( 2 )]
-
+[node name="BaseB" parent="ContainerB" instance=ExtResource( 2 )]
 rotation = 3.14159
 
-[node name="HealthB" parent="ContainerB" index="1" instance=ExtResource( 3 )]
-
+[node name="HealthB" parent="ContainerB" instance=ExtResource( 3 )]
 rotation = 1.5708
-_sections_unfolded = [ "Transform" ]
 
-[node name="nRockets" type="Label" parent="ContainerB" index="2"]
-
+[node name="nRockets" type="Label" parent="ContainerB"]
 modulate = Color( 1, 1, 1, 0.403294 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 270.0
 margin_top = 54.0
 margin_right = 281.0
 margin_bottom = 68.0
 rect_rotation = 180.0
 rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Rect", "Visibility" ]
 
-[node name="Look" type="Polygon2D" parent="ContainerB/nRockets" index="0"]
-
+[node name="Look" type="Polygon2D" parent="ContainerB/nRockets"]
 position = Vector2( -15.9406, -3.78252 )
 scale = Vector2( 0.2, 0.2 )
-polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
-uv = PoolVector2Array(  )
 color = Color( 1, 0.435294, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-invert_enable = false
-invert_border = 100.0
-_sections_unfolded = [ "Transform", "Z Index" ]
+polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
 
-[node name="ContainerA" type="Control" parent="." index="3"]
-
+[node name="ContainerA" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="BaseA" parent="ContainerA" index="0" instance=ExtResource( 2 )]
+[node name="BaseA" parent="ContainerA" instance=ExtResource( 2 )]
 
-[node name="HealthA" parent="ContainerA" index="1" instance=ExtResource( 3 )]
-
+[node name="HealthA" parent="ContainerA" instance=ExtResource( 3 )]
 rotation = -1.5708
-_sections_unfolded = [ "Transform" ]
 
-[node name="nRockets" type="Label" parent="ContainerA" index="2"]
-
+[node name="nRockets" type="Label" parent="ContainerA"]
 modulate = Color( 1, 1, 1, 0.403294 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = -270.0
 margin_top = -54.0
 margin_right = -259.0
 margin_bottom = -40.0
 rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Visibility" ]
 
-[node name="Look" type="Polygon2D" parent="ContainerA/nRockets" index="0"]
-
+[node name="Look" type="Polygon2D" parent="ContainerA/nRockets"]
 position = Vector2( -15.9406, -3.78252 )
 scale = Vector2( 0.2, 0.2 )
-polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
-uv = PoolVector2Array(  )
 color = Color( 1, 0.435294, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-invert_enable = false
-invert_border = 100.0
-_sections_unfolded = [ "Transform", "Z Index" ]
+polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
 
-[node name="RocketExplosionOnAir" type="AudioStreamPlayer" parent="." index="4"]
-
+[node name="RocketExplosionOnAir" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = 5.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
 
-[node name="RocketExplosionOnBase" type="AudioStreamPlayer" parent="." index="5"]
-
+[node name="RocketExplosionOnBase" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = 10.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
 
-[node name="Ricochet1" type="AudioStreamPlayer" parent="." index="6"]
-
+[node name="Ricochet1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -20.0
 pitch_scale = 0.8
-autoplay = false
-mix_target = 0
-bus = "Master"
 
-[node name="Ricochet2" type="AudioStreamPlayer" parent="." index="7"]
-
+[node name="Ricochet2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -22.0
 pitch_scale = 0.7
-autoplay = false
-mix_target = 0
-bus = "Master"
 
-[node name="RocketPackInterval" type="Timer" parent="." index="8"]
-
-process_mode = 1
+[node name="RocketPackInterval" type="Timer" parent="."]
 wait_time = 10.0
-one_shot = false
-autostart = false
 
-[node name="GunUpgradeInterval" type="Timer" parent="." index="9"]
+[node name="GunUpgradeInterval" type="Timer" parent="."]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
-[node name="MainCamera" type="Camera2D" parent="." index="10"]
-
-anchor_mode = 1
+[node name="MainCamera" type="Camera2D" parent="."]
 rotating = true
 current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
 
 [connection signal="item_rect_changed" from="." to="." method="_on_Main_item_rect_changed"]
-
 [connection signal="timeout" from="RocketPackInterval" to="." method="_on_RocketPackInterval_timeout"]
-
 [connection signal="timeout" from="GunUpgradeInterval" to="." method="_on_GunUpgradeInterval_timeout"]
-
-

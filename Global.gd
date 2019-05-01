@@ -12,3 +12,7 @@ var rocketsB = 1
 
 var is_online = false
 var is_server = false
+
+var connect_to_IP = '192.168.1.2'
+var connect_to_port = 6789
+var listen_to_port = 6789

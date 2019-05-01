@@ -5,65 +5,29 @@
 [ext_resource path="res://Particles/rocket_exhaust.svg" type="Texture" id=3]
 
 [node name="Gun" type="Node2D"]
-
 script = ExtResource( 1 )
 
-[node name="Look" type="Polygon2D" parent="." index="0"]
-
+[node name="Look" type="Polygon2D" parent="."]
 z_index = 1
 z_as_relative = false
-polygon = PoolVector2Array( 20, -90, 10, -100, -10, -100, -20, -90, -20, -40, -40, -30, -60, 0, -50, 0, -30, -20, -20, -20, -20, 0, 20, 0, 20, -20, 30, -20, 50, 0, 60, 0, 40, -30, 20, -40 )
-uv = PoolVector2Array(  )
 color = Color( 1, 0.701961, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-invert_enable = false
-invert_border = 100.0
-_sections_unfolded = [ "Z Index" ]
+polygon = PoolVector2Array( 20, -90, 10, -100, -10, -100, -20, -90, -20, -40, -40, -30, -60, 0, -50, 0, -30, -20, -20, -20, -20, 0, 20, 0, 20, -20, 30, -20, 50, 0, 60, 0, 40, -30, 20, -40 )
 
-[node name="Interval" type="Timer" parent="." index="1"]
-
-process_mode = 1
+[node name="Interval" type="Timer" parent="."]
 wait_time = 0.01
-one_shot = false
-autostart = false
 
-[node name="Outlet" type="Position2D" parent="." index="2"]
-
+[node name="Outlet" type="Position2D" parent="."]
 position = Vector2( 0, -130 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Shoot" type="AudioStreamPlayer" parent="." index="3"]
-
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
 
-[node name="Flame" type="Sprite" parent="." index="4"]
-
+[node name="Flame" type="Sprite" parent="."]
 modulate = Color( 1, 0.670588, 0.25098, 0 )
 position = Vector2( 0, -105 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Flash" type="Tween" parent="Flame" index="0"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
+[node name="Flash" type="Tween" parent="Flame"]
 
 [connection signal="timeout" from="Interval" to="." method="_on_Interval_timeout"]
-
-

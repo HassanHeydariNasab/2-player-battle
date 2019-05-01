@@ -38,35 +38,37 @@ func _ready():
 
 
 	var args = OS.get_cmdline_args()
-	if is_online and '-s' in args:
-		G.is_server = true
-		# create server
-		var peer = NetworkedMultiplayerENet.new()
-		peer.create_server(6789, 2)
-		get_tree().set_network_peer(peer)
-		get_tree().connect("network_peer_connected", self, "_player_connected")
-		get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-		
-		$RocketPackInterval.start()
-		$GunUpgradeInterval.start()
-		
-	elif is_online:
-		# connect client to server
-		var peer = NetworkedMultiplayerENet.new()
-		peer.create_client('127.0.0.1', 6789)
-		get_tree().set_network_peer(peer)
-		get_tree().connect("connected_to_server", self, "_connected_ok")
-		get_tree().connect("connection_failed", self, "_connected_fail")
-		get_tree().connect("server_disconnected", self, "_server_disconnected")
-	elif not is_online:
+
+	if is_online:
+		if G.is_server:
+			# create server
+			var peer = NetworkedMultiplayerENet.new()
+			peer.create_server(G.listen_to_port, 2)
+			get_tree().set_network_peer(peer)
+			get_tree().connect("network_peer_connected", self, "_player_connected")
+			get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+
+			$RocketPackInterval.start()
+			$GunUpgradeInterval.start()
+		else:
+			# connect client to server
+			var peer = NetworkedMultiplayerENet.new()
+			peer.create_client(G.connect_to_IP, G.connect_to_port)
+			get_tree().set_network_peer(peer)
+			get_tree().connect("connected_to_server", self, "_connected_ok")
+			get_tree().connect("connection_failed", self, "_connected_fail")
+			get_tree().connect("server_disconnected", self, "_server_disconnected")
+	else:
 		$RocketPackInterval.start()
 		$GunUpgradeInterval.start()
 
+
 func _draw():
-	draw_line(
-		Vector2(0, screenSize.y/2), Vector2(screenSize.x, screenSize.y/2),
-		Color('#66B0BEC5'), 7
-	)
+#	draw_line(
+#		Vector2(0, screenSize.y/2), Vector2(screenSize.x, screenSize.y/2),
+#		Color('#66B0BEC5'), 7
+#	)
+	pass
 
 
 var is_touching = false
@@ -110,7 +112,7 @@ func _input(event):
 						BaseA.Launchpad_stop()
 					else:
 						BaseA.Launchpad_stop()
-					
+
 		# rotation
 		if not is_online and event.position.y < screenSize.y/2:
 			BaseB._set_rotation(event.position.x*90/-screenSize.x-135)
@@ -297,7 +299,7 @@ func _on_GunUpgradeInterval_timeout():
 	GunUpgrade_random_y = rand_range(300, screenSize.y-300)
 	rpc('_spawn_GunUpgrade', GunUpgrade_random_x, GunUpgrade_random_y)
 	_spawn_GunUpgrade(GunUpgrade_random_x, GunUpgrade_random_y)
-	
+
 var GunUpgrade_ = null
 slave func _spawn_GunUpgrade(random_x, random_y):
 	print('spawn: ', get_network_master())
@@ -357,4 +359,4 @@ func _connected_fail():
 # on client
 func _server_disconnected():
 	print('the server kicked us!')
-	
+
