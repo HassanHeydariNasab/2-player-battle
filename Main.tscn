@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://MiddleLine.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sounds/172870__escortmarius__carbidexplosion.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/156179__jl-barrett__keys-2-single.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/409754__las98__43-metal4.wav" type="AudioStream" id=10]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -99,20 +101,32 @@ pitch_scale = 0.7
 stream = ExtResource( 8 )
 volume_db = -3.0
 
+[node name="GunUpgradeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = 1.0
+
+[node name="RocketPackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = 1.0
+
 [node name="RocketPackInterval" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 11.0
 
 [node name="GunUpgradeInterval" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="BombInterval" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 7.0
 
 [node name="MainCamera" type="Camera2D" parent="."]
 rotating = true
 current = true
 
+[node name="ShakeCamera" type="Tween" parent="."]
+repeat = true
+playback/repeat = true
+
 [connection signal="item_rect_changed" from="." to="." method="_on_Main_item_rect_changed"]
 [connection signal="timeout" from="RocketPackInterval" to="." method="_on_RocketPackInterval_timeout"]
 [connection signal="timeout" from="GunUpgradeInterval" to="." method="_on_GunUpgradeInterval_timeout"]
 [connection signal="timeout" from="BombInterval" to="." method="_on_BombInterval_timeout"]
+[connection signal="tween_completed" from="ShakeCamera" to="." method="_on_ShakeCamera_tween_completed"]

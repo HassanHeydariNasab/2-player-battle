@@ -15,9 +15,11 @@ onready var RocketExplosionOnBase = $RocketExplosionOnBase
 onready var Ricochet1 = $Ricochet1
 onready var Ricochet2 = $Ricochet2
 onready var BombExplosion = $BombExplosion
+onready var GunUpgradeSound = $GunUpgradeSound
+onready var RocketPackSound = $RocketPackSound
 
 onready var MainCamera = $MainCamera
-
+onready var ShakeCamera = $ShakeCamera
 
 var RocketPack = preload('res://RocketPack.tscn')
 var GunUpgrade = preload('res://GunUpgrade.tscn')
@@ -40,6 +42,43 @@ func _ready():
 	$RocketPackInterval.start()
 	$GunUpgradeInterval.start()
 	$BombInterval.start()
+
+	ShakeCamera.interpolate_property(
+		MainCamera, 'offset',
+		Vector2(
+			screenSize.x/2, screenSize.y/2
+		),
+		Vector2(
+			screenSize.x/2+3, screenSize.y/2+4
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT
+	)
+	ShakeCamera.interpolate_property(
+		MainCamera, 'offset',
+		Vector2(
+			screenSize.x/2+3, screenSize.y/2+4
+		),
+		Vector2(
+			screenSize.x/2-3, screenSize.y/2-2
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.3
+	)
+	ShakeCamera.interpolate_property(
+		MainCamera, 'offset',
+		Vector2(
+			screenSize.x/2-3, screenSize.y/2-2
+		),
+		Vector2(
+			screenSize.x/2+4, screenSize.y/2-2
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.6
+	)
+	ShakeCamera.interpolate_property(
+		MainCamera, 'offset',
+		Vector2(
+			screenSize.x/2+4, screenSize.y/2-2
+		),
+		Vector2(
+			screenSize.x/2, screenSize.y/2
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.6
+	)
 
 
 var is_touching = false
@@ -142,8 +181,16 @@ func _onRocketExplosionOnBase():
 	RocketExplosionOnBase.play()
 
 func onBombExplosion():
-	if not BombExplosion.is_playing():
+#	if not BombExplosion.is_playing():
 		BombExplosion.play()
+		ShakeCamera.start()
+
+
+func onGrab_GunUpgrade():
+	GunUpgradeSound.play()
+
+func onGrab_RocketPack():
+	RocketPackSound.play()
 
 var RocketPack_random_x = 0
 var RocketPack_random_y = 0
@@ -183,3 +230,7 @@ func _on_BombInterval_timeout():
 		Vector2(Bomb_random_x, Bomb_random_y)
 	)
 	Packs.add_child(Bomb_)
+
+
+func _on_ShakeCamera_tween_completed(object, key):
+	ShakeCamera.set_active(false)

@@ -40,6 +40,7 @@ func _on_Pick_tween_completed(object, key):
 func _on_RocketPack_area_entered(area):
 	shape_owner_clear_shapes(0)
 	area.queue_free()
+	G.Main.onGrab_RocketPack()
 	Lifetime.stop_all()
 	if get_global_position().y > G.Main.screenSize.y/2:
 		G.Main.BaseA.rockets += 1

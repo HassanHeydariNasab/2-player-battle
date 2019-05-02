@@ -19,3 +19,9 @@ https://freesound.org/people/Oddworld/sounds/162855/
 https://freesound.org/people/CGEffex/sounds/100772/
 
 https://freesound.org/people/Cyberkineticfilms/sounds/130202/
+
+https://freesound.org/people/escortmarius/sounds/172870/
+
+https://freesound.org/people/las98/sounds/409754/
+
+https://freesound.org/people/JL_barrett/sounds/156179/

@@ -22,6 +22,7 @@ position = Vector2( 0, -130 )
 
 [node name="Shoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = -7.0
 
 [node name="Flame" type="Sprite" parent="."]
 modulate = Color( 1, 0.670588, 0.25098, 0 )

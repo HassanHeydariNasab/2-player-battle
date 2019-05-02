@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/409754__las98__43-metal4.wav-33e43d38c4c58bf55481a6ca9dbb572c.sample"
+
+[deps]
+
+source_file="res://Sounds/409754__las98__43-metal4.wav"
+dest_files=[ "res://.import/409754__las98__43-metal4.wav-33e43d38c4c58bf55481a6ca9dbb572c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/156179__jl-barrett__keys-2-single.wav-7f271bd8a383ef35231bb96aacb2790b.sample"
+
+[deps]
+
+source_file="res://Sounds/156179__jl-barrett__keys-2-single.wav"
+dest_files=[ "res://.import/156179__jl-barrett__keys-2-single.wav-7f271bd8a383ef35231bb96aacb2790b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
