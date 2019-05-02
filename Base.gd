@@ -8,9 +8,6 @@ onready var nRockets = get_node('../nRockets')
 onready var GunLevel = $Gun/GunLevel
 
 
-const TYPE = 'Base'
-
-
 var is_A = null
 
 
@@ -66,13 +63,13 @@ func _process(delta):
 
 
 func _on_Base_area_entered(area):
+	area.shape_owner_clear_shapes(0)
 	self.health -= area.POWER
-	if area.TYPE == 'Rocket':
-		area.shape_owner_clear_shapes(0)
+	if area.get_collision_layer_bit(G.LAYER['ROCKET']):
 		area.Tick.stop()
 		area.Explosion.start()
 		G.Main._onRocketExplosionOnBase()
-	else:
+	elif area.get_collision_layer_bit(G.LAYER['BULLET']):
 		if randi()%2:
 			G.Main.Ricochet1.play()
 		else:

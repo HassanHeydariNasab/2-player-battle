@@ -1,9 +1,6 @@
 extends Area2D
 
 
-const TYPE = 'Rocket'
-
-
 onready var Explosion = $Explosion
 onready var Flame = $Flame
 onready var Tick = $Tick
@@ -68,7 +65,7 @@ func _on_Lifetime_timeout():
 
 
 func _on_Rocket_area_entered(area):
-	if area.TYPE == 'Bullet':
+	if area.get_collision_layer_bit(G.LAYER['BULLET']):
 		self.health -= area.POWER
 		area.queue_free()
 		if randi()%2:

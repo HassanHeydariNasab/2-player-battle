@@ -11,6 +11,7 @@ script = ExtResource( 1 )
 z_index = 1
 z_as_relative = false
 color = Color( 1, 0.701961, 0, 1 )
+antialiased = true
 polygon = PoolVector2Array( 20, -90, 10, -100, -10, -100, -20, -90, -20, -40, -40, -30, -60, 0, -50, 0, -30, -20, -20, -20, -20, 0, 20, 0, 20, -20, 30, -20, 50, 0, 60, 0, 40, -30, 20, -40 )
 
 [node name="Interval" type="Timer" parent="."]

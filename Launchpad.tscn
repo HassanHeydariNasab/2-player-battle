@@ -21,6 +21,7 @@ position = Vector2( 0, -80 )
 z_index = 1
 z_as_relative = false
 color = Color( 1, 0.701961, 0, 1 )
+antialiased = true
 polygon = PoolVector2Array( 40, -80, 30, -90, 30, -120, -30, -120, -30, -90, -40, -80, -40, -70, -30, -60, -30, -40, -50, -30, -60, 0, -50, 0, -40, -20, -30, -20, -30, 0, 30, 0, 30, -20, 40, -20, 50, 0, 60, 0, 50, -30, 30, -40, 30, -60, 40, -70 )
 
 [node name="Interval" type="Timer" parent="."]

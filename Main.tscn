@@ -1,16 +1,21 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://Base.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Health.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Sounds/102733__sarge4267__explosion3.wav" type="AudioStream" id=4]
-[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=5]
-[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=6]
+[ext_resource path="res://MiddleLine.gd" type="Script" id=2]
+[ext_resource path="res://Base.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sounds/102733__sarge4267__explosion3.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/172870__escortmarius__carbidexplosion.wav" type="AudioStream" id=8]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+
+[node name="MiddleLine" type="Node2D" parent="."]
+script = ExtResource( 2 )
 
 [node name="Packs" type="Node2D" parent="."]
 
@@ -20,10 +25,10 @@ script = ExtResource( 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 
-[node name="BaseB" parent="ContainerB" instance=ExtResource( 2 )]
+[node name="BaseB" parent="ContainerB" instance=ExtResource( 3 )]
 rotation = 3.14159
 
-[node name="HealthB" parent="ContainerB" instance=ExtResource( 3 )]
+[node name="HealthB" parent="ContainerB" instance=ExtResource( 4 )]
 rotation = 1.5708
 
 [node name="nRockets" type="Label" parent="ContainerB"]
@@ -50,9 +55,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 
-[node name="BaseA" parent="ContainerA" instance=ExtResource( 2 )]
+[node name="BaseA" parent="ContainerA" instance=ExtResource( 3 )]
 
-[node name="HealthA" parent="ContainerA" instance=ExtResource( 3 )]
+[node name="HealthA" parent="ContainerA" instance=ExtResource( 4 )]
 rotation = -1.5708
 
 [node name="nRockets" type="Label" parent="ContainerA"]
@@ -73,27 +78,35 @@ color = Color( 1, 0.435294, 0, 1 )
 polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
 
 [node name="RocketExplosionOnAir" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
 volume_db = 5.0
 
 [node name="RocketExplosionOnBase" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 5 )
 volume_db = 10.0
 
 [node name="Ricochet1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = -20.0
 pitch_scale = 0.8
 
 [node name="Ricochet2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -22.0
 pitch_scale = 0.7
 
+[node name="BombExplosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -3.0
+
 [node name="RocketPackInterval" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 7.0
 
 [node name="GunUpgradeInterval" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="BombInterval" type="Timer" parent="."]
+wait_time = 5.0
 
 [node name="MainCamera" type="Camera2D" parent="."]
 rotating = true
@@ -102,3 +115,4 @@ current = true
 [connection signal="item_rect_changed" from="." to="." method="_on_Main_item_rect_changed"]
 [connection signal="timeout" from="RocketPackInterval" to="." method="_on_RocketPackInterval_timeout"]
 [connection signal="timeout" from="GunUpgradeInterval" to="." method="_on_GunUpgradeInterval_timeout"]
+[connection signal="timeout" from="BombInterval" to="." method="_on_BombInterval_timeout"]

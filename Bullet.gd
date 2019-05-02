@@ -1,9 +1,6 @@
 extends Area2D
 
 
-const TYPE = 'Bullet'
-
-
 var angle = 0  # Radian
 var speed = 15
 const POWER = 0.2

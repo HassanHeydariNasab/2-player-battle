@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Bomb.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[node name="Bomb" type="Area2D"]
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+collision_layer = 32
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Lifetime" type="Tween" parent="."]
+
+[node name="Explode" type="Tween" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_Bomb_area_entered"]
+[connection signal="tween_completed" from="Lifetime" to="." method="_on_Lifetime_tween_completed"]
+[connection signal="tween_completed" from="Explode" to="." method="_on_Explode_tween_completed"]

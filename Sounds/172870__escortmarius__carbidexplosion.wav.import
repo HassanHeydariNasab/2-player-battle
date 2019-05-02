@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/172870__escortmarius__carbidexplosion.wav-6863eeadc91ce7b78a4ef16738e93e44.sample"
+
+[deps]
+
+source_file="res://Sounds/172870__escortmarius__carbidexplosion.wav"
+dest_files=[ "res://.import/172870__escortmarius__carbidexplosion.wav-6863eeadc91ce7b78a4ef16738e93e44.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

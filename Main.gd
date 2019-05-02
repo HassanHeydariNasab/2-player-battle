@@ -14,12 +14,14 @@ onready var RocketExplosionOnAir = $RocketExplosionOnAir
 onready var RocketExplosionOnBase = $RocketExplosionOnBase
 onready var Ricochet1 = $Ricochet1
 onready var Ricochet2 = $Ricochet2
+onready var BombExplosion = $BombExplosion
 
 onready var MainCamera = $MainCamera
 
 
 var RocketPack = preload('res://RocketPack.tscn')
 var GunUpgrade = preload('res://GunUpgrade.tscn')
+var Bomb = preload('res://Bomb.tscn')
 
 
 var screenSize = Vector2()
@@ -37,14 +39,7 @@ func _ready():
 
 	$RocketPackInterval.start()
 	$GunUpgradeInterval.start()
-
-
-func _draw():
-#	draw_line(
-#		Vector2(0, screenSize.y/2), Vector2(screenSize.x, screenSize.y/2),
-#		Color('#66B0BEC5'), 7
-#	)
-	pass
+	$BombInterval.start()
 
 
 var is_touching = false
@@ -146,36 +141,45 @@ func _onRocketExplosionOnAir():
 func _onRocketExplosionOnBase():
 	RocketExplosionOnBase.play()
 
+func onBombExplosion():
+	if not BombExplosion.is_playing():
+		BombExplosion.play()
 
 var RocketPack_random_x = 0
 var RocketPack_random_y = 0
-# on server
+var RocketPack_ = null
 func _on_RocketPackInterval_timeout():
 	RocketPack_random_x = rand_range(0, screenSize.x)
 	RocketPack_random_y = rand_range(300, screenSize.y-300)
-	_spawn_RocketPack(RocketPack_random_x, RocketPack_random_y)
-
-var RocketPack_ = null
-func _spawn_RocketPack(random_x, random_y):
 	RocketPack_ = RocketPack.instance()
 	RocketPack_.set_global_position(
-		Vector2(random_x, random_y)
+		Vector2(RocketPack_random_x, RocketPack_random_y)
 	)
 	Packs.add_child(RocketPack_)
 
 
 var GunUpgrade_random_x = 0
 var GunUpgrade_random_y = 0
-# on server
+var GunUpgrade_ = null
 func _on_GunUpgradeInterval_timeout():
 	GunUpgrade_random_x = rand_range(0, screenSize.x)
 	GunUpgrade_random_y = rand_range(300, screenSize.y-300)
-	_spawn_GunUpgrade(GunUpgrade_random_x, GunUpgrade_random_y)
-
-var GunUpgrade_ = null
-func _spawn_GunUpgrade(random_x, random_y):
 	GunUpgrade_ = GunUpgrade.instance()
 	GunUpgrade_.set_global_position(
-		Vector2(random_x, random_y)
+		Vector2(GunUpgrade_random_x, GunUpgrade_random_y)
 	)
 	Packs.add_child(GunUpgrade_)
+
+
+var Bomb_random_x = 0
+var Bomb_random_y = 0
+var Bomb_ = null
+func _on_BombInterval_timeout():
+	randomize()
+	Bomb_random_x = rand_range(0, screenSize.x)
+	Bomb_random_y = rand_range(300, screenSize.y-300)
+	Bomb_ = Bomb.instance()
+	Bomb_.set_global_position(
+		Vector2(Bomb_random_x, Bomb_random_y)
+	)
+	Packs.add_child(Bomb_)
