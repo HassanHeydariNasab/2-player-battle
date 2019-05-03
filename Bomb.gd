@@ -27,8 +27,8 @@ func _ready():
 
 
 func _draw():
-	draw_circle(Vector2(0, 0), 20, Color('424242'))
-	draw_circle(Vector2(0, 0), 17, Color('757575'))
+	draw_circle(Vector2(0, 0), 20, Color('F4511E'))
+	draw_circle(Vector2(0, 0), 17, Color('212121'))
 
 func _on_Explode_tween_completed(object, key):
 	queue_free()

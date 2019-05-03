@@ -7,7 +7,6 @@ onready var Lifetime = $Lifetime
 
 func _ready():
 	randomize()
-	set_rotation_degrees(rand_range(0,360))
 	Pick.interpolate_property(
 		self, 'modulate', Color(1,1,1,1), Color(1,1,1,0), 0.5,
 		Tween.TRANS_QUAD, Tween.EASE_IN

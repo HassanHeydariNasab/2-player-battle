@@ -3,7 +3,7 @@
 [ext_resource path="res://RocketPack.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 25, 25 )
+extents = Vector2( 20, 20 )
 
 [node name="RocketPack" type="Area2D"]
 rotation = 1.5708
@@ -20,14 +20,7 @@ script = ExtResource( 1 )
 color = Color( 1, 0.431373, 0, 1 )
 antialiased = true
 invert_border = 5.0
-polygon = PoolVector2Array( 19.9999, -20.0001, -20.0001, -19.9999, -19.9999, 20.0001, 20.0001, 19.9999 )
-
-[node name="Border" type="Polygon2D" parent="."]
-color = Color( 0.628906, 0.612938, 0.550293, 1 )
-antialiased = true
-invert_enable = true
-invert_border = 5.0
-polygon = PoolVector2Array( 19.9999, -20.0001, -20.0001, -19.9999, -19.9999, 20.0001, 20.0001, 19.9999 )
+polygon = PoolVector2Array( 20, -13.3334, 17.3333, -17.3334, 13.3333, -20, -13.3334, -20, -17.3334, -17.3333, -20, -13.3333, -20, 13.3334, -17.3333, 17.3334, -13.3333, 20, 13.3334, 20, 17.3334, 17.3333, 20, 13.3333 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

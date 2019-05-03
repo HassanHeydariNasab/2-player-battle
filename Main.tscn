@@ -40,11 +40,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -340.0
+margin_left = 340.0
 margin_top = 80.0002
-margin_right = 260.0
+margin_right = 940.0
 margin_bottom = 448.0
-rect_scale = Vector2( 0.2, -0.2 )
+rect_scale = Vector2( -0.2, -0.2 )
 max_value = 5.0
 value = 5.0
 texture_progress = ExtResource( 5 )
@@ -109,8 +109,10 @@ volume_db = 1.0
 wait_time = 11.0
 
 [node name="GunUpgradeInterval" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="BombInterval" type="Timer" parent="."]
+wait_time = 7.0
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true

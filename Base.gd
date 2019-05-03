@@ -47,7 +47,7 @@ func inc_gunLevel(by):
 
 
 func _ready():
-	self.health = 180
+	self.health = 2
 	self.gunLevel = 1
 	Gun.show()
 	Launchpad.hide()
@@ -84,6 +84,8 @@ func _on_Base_area_entered(area):
 		else:
 			G.Main.Ricochet2.play()
 		area.queue_free()
+		Red.start()
+	elif area.get_collision_layer_bit(G.LAYER['BOMB']):
 		Red.start()
 
 
