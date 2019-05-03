@@ -15,9 +15,11 @@ _global_script_class_icons={
 
 [application]
 
-config/name="2-Player-Battle"
-run/main_scene="res://Main.tscn"
+config/name="2 Player Battle"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
+config/auto_accept_quit=false
+config/quit_on_go_back=false
 
 [autoload]
 

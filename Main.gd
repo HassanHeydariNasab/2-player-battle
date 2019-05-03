@@ -30,6 +30,7 @@ var screenSize = Vector2()
 
 var is_online = false
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	G.Main = self
 	BaseA.is_A = true
 	BaseB.is_A = false
@@ -104,6 +105,16 @@ func _ready():
 		false
 		, 0.4, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0
 	)
+
+
+var back_count = 0
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		get_tree().change_scene('res://Menu.tscn')
+	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+		back_count += 1
+		if back_count > 3:
+	        get_tree().change_scene('res://Menu.tscn')
 
 
 var is_touching = false

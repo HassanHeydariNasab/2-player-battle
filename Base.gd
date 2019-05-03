@@ -47,7 +47,7 @@ func inc_gunLevel(by):
 
 
 func _ready():
-	self.health = 2
+	self.health = 180
 	self.gunLevel = 1
 	Gun.show()
 	Launchpad.hide()
