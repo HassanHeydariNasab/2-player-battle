@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://MiddleLine.gd" type="Script" id=2]
 [ext_resource path="res://Base.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Health.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sounds/102733__sarge4267__explosion3.wav" type="AudioStream" id=5]
-[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=6]
-[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=7]
-[ext_resource path="res://Sounds/172870__escortmarius__carbidexplosion.wav" type="AudioStream" id=8]
-[ext_resource path="res://Sounds/156179__jl-barrett__keys-2-single.wav" type="AudioStream" id=9]
-[ext_resource path="res://Sounds/409754__las98__43-metal4.wav" type="AudioStream" id=10]
+[ext_resource path="res://Rockets.png" type="Texture" id=5]
+[ext_resource path="res://Sounds/102733__sarge4267__explosion3.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_1.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/109957__rakurka__incoming-ricochets-2_selected_2.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/172870__escortmarius__carbidexplosion.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sounds/156179__jl-barrett__keys-2-single.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/409754__las98__43-metal4.wav" type="AudioStream" id=11]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -33,23 +34,20 @@ rotation = 3.14159
 [node name="HealthB" parent="ContainerB" instance=ExtResource( 4 )]
 rotation = 1.5708
 
-[node name="nRockets" type="Label" parent="ContainerB"]
-modulate = Color( 1, 1, 1, 0.403294 )
-margin_left = 270.0
-margin_top = 54.0
-margin_right = 281.0
-margin_bottom = 68.0
-rect_rotation = 180.0
-rect_scale = Vector2( 2, 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "0"
-valign = 1
-
-[node name="Look" type="Polygon2D" parent="ContainerB/nRockets"]
-position = Vector2( -15.9406, -3.78252 )
-scale = Vector2( 0.2, 0.2 )
-color = Color( 1, 0.435294, 0, 1 )
-polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
+[node name="RocketsCount" type="TextureProgress" parent="ContainerB"]
+modulate = Color( 1, 1, 1, 0.6 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -340.0
+margin_top = 80.0002
+margin_right = 260.0
+margin_bottom = 448.0
+rect_scale = Vector2( 0.2, -0.2 )
+max_value = 5.0
+value = 5.0
+texture_progress = ExtResource( 5 )
 
 [node name="ContainerA" type="Control" parent="."]
 anchor_left = 0.5
@@ -62,51 +60,49 @@ anchor_bottom = 1.0
 [node name="HealthA" parent="ContainerA" instance=ExtResource( 4 )]
 rotation = -1.5708
 
-[node name="nRockets" type="Label" parent="ContainerA"]
-modulate = Color( 1, 1, 1, 0.403294 )
-margin_left = -270.0
-margin_top = -54.0
-margin_right = -259.0
-margin_bottom = -40.0
-rect_scale = Vector2( 2, 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "0"
-valign = 1
-
-[node name="Look" type="Polygon2D" parent="ContainerA/nRockets"]
-position = Vector2( -15.9406, -3.78252 )
-scale = Vector2( 0.2, 0.2 )
-color = Color( 1, 0.435294, 0, 1 )
-polygon = PoolVector2Array( -16.6667, -66.6667, -8.33333, -83.3333, 0, -90, 8.33333, -83.3333, 16.6667, -66.6667, 25, -50, 33.3333, -25, 33.3333, 100, 25, 108.333, 25, 125, -25, 125, -25, 108.333, -33.3333, 100, -33.3333, -25, -25, -50 )
+[node name="RocketsCount" type="TextureProgress" parent="ContainerA"]
+modulate = Color( 1, 1, 1, 0.6 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -340.0
+margin_top = -80.0
+margin_right = 260.0
+margin_bottom = 270.0
+rect_scale = Vector2( 0.2, 0.2 )
+max_value = 5.0
+value = 5.0
+texture_progress = ExtResource( 5 )
 
 [node name="RocketExplosionOnAir" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = 5.0
 
 [node name="RocketExplosionOnBase" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 6 )
 volume_db = 10.0
 
 [node name="Ricochet1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 7 )
 volume_db = -20.0
 pitch_scale = 0.8
 
 [node name="Ricochet2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 8 )
 volume_db = -22.0
 pitch_scale = 0.7
 
 [node name="BombExplosion" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = -3.0
 
 [node name="GunUpgradeSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource( 10 )
 volume_db = 1.0
 
 [node name="RocketPackSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = 1.0
 
 [node name="RocketPackInterval" type="Timer" parent="."]
@@ -115,10 +111,8 @@ wait_time = 11.0
 [node name="GunUpgradeInterval" type="Timer" parent="."]
 
 [node name="BombInterval" type="Timer" parent="."]
-wait_time = 7.0
 
 [node name="MainCamera" type="Camera2D" parent="."]
-rotating = true
 current = true
 
 [node name="ShakeCamera" type="Tween" parent="."]

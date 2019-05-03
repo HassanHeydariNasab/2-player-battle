@@ -4,8 +4,9 @@ extends Area2D
 onready var Gun = $Gun
 onready var GunInterval = $Gun/Interval
 onready var Launchpad = $Launchpad
-onready var nRockets = get_node('../nRockets')
+onready var RocketsCount = get_node('../RocketsCount')
 onready var GunLevel = $Gun/GunLevel
+onready var Red = $Red
 
 
 var is_A = null
@@ -32,7 +33,7 @@ var rockets setget set_rockets
 func set_rockets(value):
 	if value >= 0 and value <= 5:
 		rockets = value
-		nRockets.set_text(str(value))
+		RocketsCount.set_value(value)
 
 var gunLevel = 1 setget set_gunLevel
 func set_gunLevel(value):
@@ -52,7 +53,14 @@ func _ready():
 	Launchpad.hide()
 	Launchpad.Interval.stop()
 	set_process(true)
-
+	Red.interpolate_property(
+		self, 'modulate', Color(1,1,1,1), Color('#FF5252'),
+		0.2, Tween.TRANS_QUAD, Tween.EASE_OUT
+	)
+	Red.interpolate_property(
+		self, 'modulate', Color('#FF5252'), Color(1,1,1,1),
+		0.2, Tween.TRANS_QUAD, Tween.EASE_OUT
+	)
 
 func _draw():
 	draw_circle(Vector2(0,0), 180, Color(G.color))
@@ -69,12 +77,14 @@ func _on_Base_area_entered(area):
 		area.Tick.stop()
 		area.Explosion.start()
 		G.Main._onRocketExplosionOnBase()
+		Red.start()
 	elif area.get_collision_layer_bit(G.LAYER['BULLET']):
 		if randi()%2:
 			G.Main.Ricochet1.play()
 		else:
 			G.Main.Ricochet2.play()
 		area.queue_free()
+		Red.start()
 
 
 func _set_rotation(angle):
@@ -115,3 +125,7 @@ func _change_weapon():
 
 func _on_ChangeWeapon_pressed():
 	_change_weapon()
+
+
+func _on_Red_tween_completed(object, key):
+	Red.set_active(false)

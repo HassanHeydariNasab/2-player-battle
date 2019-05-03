@@ -49,35 +49,60 @@ func _ready():
 			screenSize.x/2, screenSize.y/2
 		),
 		Vector2(
-			screenSize.x/2+3, screenSize.y/2+4
-		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT
+			screenSize.x/2+4, screenSize.y/2+4
+		), 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT
 	)
 	ShakeCamera.interpolate_property(
 		MainCamera, 'offset',
 		Vector2(
-			screenSize.x/2+3, screenSize.y/2+4
+			screenSize.x/2+4, screenSize.y/2+4
 		),
 		Vector2(
-			screenSize.x/2-3, screenSize.y/2-2
-		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.3
+			screenSize.x/2-4, screenSize.y/2-3
+		), 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1
 	)
 	ShakeCamera.interpolate_property(
 		MainCamera, 'offset',
 		Vector2(
-			screenSize.x/2-3, screenSize.y/2-2
+			screenSize.x/2-4, screenSize.y/2-3
 		),
 		Vector2(
-			screenSize.x/2+4, screenSize.y/2-2
-		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.6
+			screenSize.x/2+5, screenSize.y/2-5
+		), 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.2
 	)
 	ShakeCamera.interpolate_property(
 		MainCamera, 'offset',
 		Vector2(
-			screenSize.x/2+4, screenSize.y/2-2
+			screenSize.x/2+5, screenSize.y/2-3
 		),
 		Vector2(
 			screenSize.x/2, screenSize.y/2
-		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.6
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.2
+	)
+	ShakeCamera.interpolate_property(
+		MainCamera, 'zoom',
+		Vector2(
+			1,1
+		),
+		Vector2(
+			1.02, 1.02
+		), 0.2, Tween.TRANS_BOUNCE, Tween.EASE_OUT, 0
+	)
+	ShakeCamera.interpolate_property(
+		MainCamera, 'zoom',
+		Vector2(
+			1.02,1.02
+		),
+		Vector2(
+			1, 1
+		), 0.2, Tween.TRANS_BOUNCE, Tween.EASE_OUT, 0.2
+	)
+	# only a flag
+	ShakeCamera.interpolate_property(
+		MainCamera, 'rotating',
+		false,
+		false
+		, 0.4, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0
 	)
 
 
@@ -233,4 +258,5 @@ func _on_BombInterval_timeout():
 
 
 func _on_ShakeCamera_tween_completed(object, key):
-	ShakeCamera.set_active(false)
+	if key == ':rotating':
+		ShakeCamera.set_active(false)

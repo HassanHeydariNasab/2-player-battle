@@ -4,3 +4,6 @@
 # System/tool-specific ignores
 .directory
 *~
+
+# build
+build
