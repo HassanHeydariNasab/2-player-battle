@@ -10,8 +10,8 @@ func _ready():
 
 
 func _notification(what):
-    if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        get_tree().change_scene('res://Menu.tscn')
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		get_tree().change_scene('res://Menu.tscn')
 
 
 func _on_Restart_pressed():

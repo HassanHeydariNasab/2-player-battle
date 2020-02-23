@@ -105,7 +105,6 @@ align = 1
 [node name="icon" type="Sprite" parent="Label"]
 position = Vector2( 350, -100 )
 texture = ExtResource( 3 )
-
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="About" to="." method="_on_About_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

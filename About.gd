@@ -5,8 +5,8 @@ var screenSize = Vector2()
 
 
 func _notification(what):
-    if what in [MainLoop.NOTIFICATION_WM_QUIT_REQUEST, MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST]:
-        get_tree().change_scene('res://Menu.tscn')
+	if what in [MainLoop.NOTIFICATION_WM_QUIT_REQUEST, MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST]:
+		get_tree().change_scene('res://Menu.tscn')
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)

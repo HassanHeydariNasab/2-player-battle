@@ -114,7 +114,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		back_count += 1
 		if back_count > 3:
-	        get_tree().change_scene('res://Menu.tscn')
+			get_tree().change_scene('res://Menu.tscn')
 
 
 var is_touching = false
