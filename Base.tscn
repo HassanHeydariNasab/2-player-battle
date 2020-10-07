@@ -29,6 +29,9 @@ custom_fonts/font = ExtResource( 3 )
 text = "123"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Launchpad" parent="." instance=ExtResource( 4 )]
 visible = false
@@ -38,13 +41,13 @@ position = Vector2( 0, -164 )
 shape = SubResource( 1 )
 
 [node name="ChangeWeapon" type="TouchScreenButton" parent="."]
+position = Vector2( -179.448, -179.673 )
 shape = SubResource( 2 )
 passby_press = true
 
 [node name="Red" type="Tween" parent="."]
 repeat = true
 playback/repeat = true
-
 [connection signal="area_entered" from="." to="." method="_on_Base_area_entered"]
 [connection signal="pressed" from="ChangeWeapon" to="." method="_on_ChangeWeapon_pressed"]
 [connection signal="tween_completed" from="Red" to="." method="_on_Red_tween_completed"]

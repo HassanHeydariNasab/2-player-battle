@@ -48,6 +48,9 @@ rect_scale = Vector2( -0.2, -0.2 )
 max_value = 5.0
 value = 5.0
 texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ContainerA" type="Control" parent="."]
 anchor_left = 0.5
@@ -120,7 +123,6 @@ current = true
 [node name="ShakeCamera" type="Tween" parent="."]
 repeat = true
 playback/repeat = true
-
 [connection signal="item_rect_changed" from="." to="." method="_on_Main_item_rect_changed"]
 [connection signal="timeout" from="RocketPackInterval" to="." method="_on_RocketPackInterval_timeout"]
 [connection signal="timeout" from="GunUpgradeInterval" to="." method="_on_GunUpgradeInterval_timeout"]
